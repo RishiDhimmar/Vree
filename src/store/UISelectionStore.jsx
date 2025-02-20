@@ -17,7 +17,7 @@ class UISelectionStore {
       metallic : null,
       roughness : null
     },
-    "Lense" : {
+    "Lenses" : {
       texture : null,
       color : null,
       metallic : null,
@@ -94,6 +94,10 @@ class UISelectionStore {
       case "Temple":
         templeObject.setTransparency(opacity);
         break;
+
+      case "Lenses":
+        lenseObject.setOpacity(opacity);
+        break;
       default:
         break;
     }
@@ -107,6 +111,10 @@ class UISelectionStore {
 
       case "Temple":
         templeObject.setColor(color);
+        break;
+
+      case "Lenses":
+        lenseObject.setColor(color);
         break;
       default:
         break;

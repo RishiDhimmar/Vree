@@ -61,11 +61,11 @@ function SideBar() {
         <div className="border-t border-purple-300 w-full"></div>
 
         <div className="last overflow-y-scroll h-100">
-          {(selectionStore.selectedPart === 'Temple' || selectionStore.selectedPart === 'Frame')  ? (
+          {/* {(selectionStore.selectedPart === 'Temple' || selectionStore.selectedPart === 'Frame')  ? ( */}
             <TempleLensLayout />
-          ): <>
+          {/* ): <>
           {console.log(selectionStore.selectedPart)}
-          </>}
+          </>} */}
         </div>
       </div>
     </div>

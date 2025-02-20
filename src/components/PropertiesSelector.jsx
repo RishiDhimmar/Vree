@@ -50,7 +50,7 @@ const MaterialProperties = observer(() => {
       <h2 className="text-lg font-bold mb-4">Material Properties</h2>
 
       {/* Metallic Slider */}
-      <div className="my-4 flex gap-7 items-center mb-7 mr-4">
+      {selectionStore.selectedPart != "Lenses" && (    <div className="my-4 flex gap-7 items-center mb-7 mr-4">
         <label className="block text-sm font-medium ">Metallic</label>
         <input
           type="range"
@@ -63,10 +63,12 @@ const MaterialProperties = observer(() => {
 
         />
         <span className="text-xs text-gray-400">{metallic.toFixed(2)}</span>
-      </div>
+      </div>)}
+  
 
       {/* Roughness Slider */}
-      <div className="mb-4 flex gap-7 items-center mb-7 mr-4">
+      {selectionStore.selectedPart != "Lenses" && (
+        <div className="mb-4 flex gap-7 items-center mb-7 mr-4">
 
         <label className="block text-sm font-medium ">Roughness</label>
         <input
@@ -80,6 +82,8 @@ const MaterialProperties = observer(() => {
         />
         <span className="text-xs text-gray-400">{roughness.toFixed(2)}</span>
       </div>
+      )}
+      
 
       {/* Transparency Slider */}
       <div className="mb-4 flex gap-7 items-center mb-5 mr-4">
