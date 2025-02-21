@@ -3,6 +3,7 @@ import { selectionStore } from "../store/UISelectionStore";
 import { frameObject } from "../core/FrameClass";
 import { templeObject } from "../core/TempleClass";
 import { observer } from "mobx-react";
+import { lenseObject } from "../core/LenseClass";
 
 const MaterialProperties = observer(() => {
   const [metallic, setMetallic] = useState(0);
@@ -27,11 +28,15 @@ const MaterialProperties = observer(() => {
         setRoughness(templeObject.getRoughness())
         setTransparency(templeObject.getTransparency())
         break;
+
+      case "Lenses":
+        setTransparency(lenseObject.getTransparency())
+        break;
       default:
         break;
     }
     
-  },[selectionStore.selectedPart, selectionStore.selectedStuff])
+  },[selectionStore.selectedPart, selectionStore.selectedStuff, selectionStore.readyToLoad])
   const handleMetalNessChange = (e) => {
     setMetallic(parseFloat(e.target.value))
     selectionStore.setMetalNess(parseFloat(e.target.value))

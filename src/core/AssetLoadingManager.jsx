@@ -3,6 +3,7 @@ import { textureStore } from "../store/TextureStore";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/examples/jsm/Addons.js";
 
+
 class AssetLoadingManager {
   constructor() {
     this.loadingManager = new THREE.LoadingManager();
@@ -35,6 +36,7 @@ class AssetLoadingManager {
     this.loadingManager.onLoad = () => {
       console.log("All assets loaded!");
       this.isLoading = false;
+
     };
   }
 

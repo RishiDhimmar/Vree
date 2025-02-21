@@ -4,6 +4,7 @@ import * as THREE from "three";
 
 class FrameClass extends GlassesClass {
   frameMaterial = null;
+  mesh = null;
 
   setupFrame(model) {
     this.setFrameMaterial(model.material);
@@ -11,13 +12,16 @@ class FrameClass extends GlassesClass {
     this.setMetalNess(model.material.metalness);
     this.setRoughness(model.material.roughness);
     this.setTransparency(model.material.opacity);
-
+    this.setMesh(model);
   }
 
   setFrameMaterial(material) {
     this.frameMaterial = material;
     console.log(material);
 
+  }
+  setMesh(mesh) {
+    this.mesh = mesh;
   }
   setTexture(texture) {
     this.frameMaterial.map = textureStore.assetMap.get(texture.split(".")[0]);
@@ -57,6 +61,9 @@ class FrameClass extends GlassesClass {
   }
   getTransparency() {
     return this.frameMaterial.opacity;
+  }
+  getMesh() {
+    return this.mesh;
   }
 }
 

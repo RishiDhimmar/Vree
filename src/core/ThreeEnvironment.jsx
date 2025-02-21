@@ -7,6 +7,8 @@ import { assetLoadingManager } from "./AssetLoadingManager";
 import * as THREE from "three";
 import { frameObject } from "./FrameClass";
 import { textureStore } from "../store/TextureStore";
+import { selectionStore } from "../store/UISelectionStore";
+import { OutlineManager } from "./OutlineManager";
 
 export class ThreeEnvironment {
   constructor(canvas) {
@@ -31,6 +33,11 @@ export class ThreeEnvironment {
       this.sceneManager.gui
     );
     this.assetManager = assetLoadingManager;
+    this.outLineManager = new OutlineManager(
+      this.sceneManager.scene,
+      this.cameraManager.camera,
+      this.rendererManager.renderer
+    );
 
     this.initialize();
   }
@@ -48,17 +55,16 @@ export class ThreeEnvironment {
     this.setupEventListeners();
 
     try {
-
       await this.assetManager.loadAllAssets().then(() => {
-        console.log(textureStore.getTexture("sampleModel"))
+        console.log(textureStore.getTexture("sampleModel"));
         this.addModelToScene(textureStore.getTexture("sampleModel"));
       });
-
 
       this.startAnimationLoop();
     } catch (error) {
       console.error("Initialization error:", error);
     }
+    this.outLineManager.setupOutline();
   }
 
   // In ThreeEnvironment's setupScene method:
@@ -87,6 +93,7 @@ export class ThreeEnvironment {
         this.sceneManager.handleModelAddingToScene(child);
       }
     });
+    selectionStore.setReadyToLoad(true);
   }
 
   setupEventListeners() {
@@ -98,16 +105,39 @@ export class ThreeEnvironment {
     this.rendererManager.handleResize();
   }
 
+  // startAnimationLoop() {
+  //   const animate = () => {
+  //     const delta = this.clock.getDelta();
+  //     // debugger
+  //     this.controlsManager.update(delta);
+
+  //     if(this.outLineManager.composer) {
+  //       // console.log(this.outLineManager.composer)
+  //       this.outLineManager.composer.render();
+  //     }
+
+  //     this.rendererManager.render(
+  //       this.sceneManager.scene,
+  //       this.cameraManager.camera
+  //     );
+  //     requestAnimationFrame(animate);
+  //   };
+  //   animate();
+  // }
   startAnimationLoop() {
     const animate = () => {
       const delta = this.clock.getDelta();
-      // debugger
       this.controlsManager.update(delta);
-
-      this.rendererManager.render(
-        this.sceneManager.scene,
-        this.cameraManager.camera
-      );
+  
+      // Use composer OR regular renderer, not both
+      if (this.outLineManager.composer) {
+        this.outLineManager.composer.render();
+      } else {
+        this.rendererManager.render(
+          this.sceneManager.scene,
+          this.cameraManager.camera
+        );
+      }
       requestAnimationFrame(animate);
     };
     animate();

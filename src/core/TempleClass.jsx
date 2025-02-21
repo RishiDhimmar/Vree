@@ -5,8 +5,15 @@ import * as THREE from "three";
 export class TempleClass extends GlassesClass {
   leftTempleMaterial = null;
   rightTempleMaterial = null;
+  mesh = null;
 
-
+  
+  setLeftMesh(mesh) {
+    this.leftMesh = mesh;
+  }
+  setRightMesh(mesh) {
+    this.rightMesh = mesh;
+  }
   setupLeftTemple(model){
     this.setLeftTempleMaterial(model.material);
     this.setLeftTempleMaterialColor(model.material.color);
@@ -14,6 +21,7 @@ export class TempleClass extends GlassesClass {
     this.setLeftTempleMaterialRoughness(model.material.roughness);
     this.setLeftTempleMaterialOpacity(model.material.opacity);
     console.log("Left Temple Set")
+    this.setLeftMesh(model);
   }
   setupRightTemple(model){
     this.setRightTempleMaterial(model.material);
@@ -21,9 +29,8 @@ export class TempleClass extends GlassesClass {
     this.setRightTempleMaterialMetalNess(model.material.metalness);
     this.setRightTempleMaterialRoughness(model.material.roughness);
     this.setRightTempleMaterialOpacity(model.material.opacity);
+    this.setRightMesh(model);
   }
-
-
 
   setLeftTempleMaterial(material) {
     this.leftTempleMaterial = material;
@@ -104,6 +111,9 @@ export class TempleClass extends GlassesClass {
   }
   getTransparency() {
     return this.leftTempleMaterial.opacity;
+  }
+  getMesh() {
+    return this.leftMesh;
   }
 }
 

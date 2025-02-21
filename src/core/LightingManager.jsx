@@ -30,9 +30,9 @@ export class LightingManager {
     // this.scene.add(this.castShadowHelper);
 
 
-    // const lightFolder = this.gui.addFolder("Lighting");
-    // lightFolder.add(this.lights.ambient, "intensity", 0, 20).name("Ambient Light");
-    // // lightFolder.add(this.lights.directional, "intensity", 0, 20).name("Main Light");
-    // lightFolder.open();
+    const lightFolder = this.gui.addFolder("Lighting");
+    lightFolder.add(this.lights.ambient, "intensity", 0,50).name("Ambient Light");
+    // lightFolder.add(this.lights.directional, "intensity", 0, 20).name("Main Light");
+    lightFolder.open();
   }
 }

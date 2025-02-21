@@ -3,7 +3,7 @@ import { frameObject } from "../core/FrameClass";
 import { lenseObject } from "../core/LenseClass";
 import { templeObject } from "../core/TempleClass";
 class UISelectionStore {
-  selectedPart = "Frame";
+  selectedPart = "Temple";
   selectedStuff = {
     "Frame" : {
       texture : null,
@@ -24,6 +24,7 @@ class UISelectionStore {
       roughness : null
     }
   }
+  readyToLoad = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -31,6 +32,14 @@ class UISelectionStore {
 
   setSelectedPart(part) {
     this.selectedPart = part;
+  }
+
+  setReadyToLoad(bool) {
+    this.readyToLoad = bool;
+  }
+
+  get ReadyToLoad() {
+    return this.readyToLoad;
   }
 
   get SelectedPart() {
