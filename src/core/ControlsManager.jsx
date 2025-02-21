@@ -59,9 +59,9 @@ export class ControlsManager {
       this.controls.infinityDolly = false;
   
       // Smoothing configuration
-      this.controls.dollySpeed = 0.5;
-      this.controls.truckSpeed = 1.0;
-      this.controls.dampingFactor = 1;
+      this.controls.dollySpeed = 0.8;
+      this.controls.truckSpeed = 1.5;
+      this.controls.dampingFactor = 1.5;
 
       // this.controls.screenSpacePanning = false;
       // this.controls.maxPolarAngle = Math.PI / 2;

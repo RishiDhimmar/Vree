@@ -29,7 +29,7 @@ function TextureSelector() {
   return (
     <div>
       <div className="label mt-[30px]">Texture</div>
-      <div className="wrap flex gap-20 mt-5 pl-5">
+      <div className="wrap flex gap-15 mt-5 pl-5">
         {textures.map((texture, index) => (
           <CircleContainer
             key={index}

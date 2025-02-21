@@ -1,2 +1,22 @@
 
 @import "tailwindcss";
+::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 10px;
+    overflow: hidden;
+
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #a19e9e; /* Purple */
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #E2E8F0; /* Gray */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #5A2D8C; /* Darker Purple on hover */
+  }
+  

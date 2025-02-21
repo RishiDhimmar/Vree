@@ -101,6 +101,8 @@ import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
 import { selectionStore } from "../store/UISelectionStore"; // Assuming this is Zustand
 import TempleLensLayout from "./TempleLensLayout";
 import { observer } from "mobx-react";
+import { GrPowerReset } from "react-icons/gr";
+import { FaSave } from "react-icons/fa";
 
 const SideBar = observer(() => {
   const [selectedTab, setSelectedTab] = useState("Frame");
@@ -140,9 +142,9 @@ const SideBar = observer(() => {
   };
 
   return (
-    <div className="w-full h-[500px] bg-[url('/assets/background/sidebarbg.png')] mx-5 bg-cover bg-center bg-no-repeat overflow-hidden border-1 border-gray-200 rounded-[10px]">
+    <div className="w-full h-[555px] bg-[url('/assets/background/sidebarbg.png')] mx-5 bg-cover bg-center bg-no-repeat overflow-hidden border-1 border-gray-200 rounded-[10px]">
       <div className="w-full px-6 mt-6">
-        <div className="flex mb-4 justify-between text-[18px] text-white">
+        <div className="flex mb-2 justify-between text-[18px] text-white">
           <div
             className="left-tab opacity-50 flex items-center gap-2 cursor-pointer hover:opacity-100 hover:scale-103 duration-200"
             onClick={rotateTabsLeft}
@@ -150,7 +152,13 @@ const SideBar = observer(() => {
             <div className="icon-con">
               <HiArrowLongLeft />
             </div>
-            <div className="label">{tabs[(tabs.indexOf(selectedTab) - 1 + tabs.length) % tabs.length]}</div>
+            <div className="label">
+              {
+                tabs[
+                  (tabs.indexOf(selectedTab) - 1 + tabs.length) % tabs.length
+                ]
+              }
+            </div>
           </div>
 
           <div
@@ -164,7 +172,9 @@ const SideBar = observer(() => {
             className="right-tab opacity-50 flex items-center gap-2 cursor-pointer hover:opacity-100 hover:scale-103 duration-200"
             onClick={rotateTabsRight}
           >
-            <div className="label">{tabs[(tabs.indexOf(selectedTab) + 1) % tabs.length]}</div>
+            <div className="label">
+              {tabs[(tabs.indexOf(selectedTab) + 1) % tabs.length]}
+            </div>
             <div className="icon-con">
               <HiArrowLongRight />
             </div>
@@ -176,11 +186,33 @@ const SideBar = observer(() => {
           <div className="triangle w-1 h-1 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-purple-300"></div>
         </div>
 
-        <div className="border-t border-purple-300 w-full"></div>
+        <div className="border-t border-purple-300 w-full mb-2 rounded-b-[10px]"></div>
 
-        <div className="last overflow-y-scroll h-100">
+        <div className="last overflow-y-scroll h-100 scrollbar-thin">
           {/* Render TempleLensLayout here based on the selected part */}
           <TempleLensLayout />
+        </div>
+        <div className="btn-cover my-4 flex justify-center gap-3">
+          <button className="reset-wrap w-100">
+            <div className="btn bg-[#5b585f] border border-2 border-gray-400 rounded w-full py-3 text-[#b5b5b5] cursor-pointer flex items-center gap-2 justify-center hover:scale-105 hover:border-white hover:text-white">
+              <div className="icon-con">
+                <GrPowerReset />
+              </div>
+              <div className="label">
+              Reset{" "}
+              </div>
+            </div>
+          </button>
+          <button className="save-wrap w-100">
+            <div className="btn bg-transparent border border-1 border-[#a673ff] rounded w-full py-3 text-[#a673ff] cursor-pointer flex items-center gap-2 justify-center hover:scale-105 hover:border-white hover:text-white">
+              <div className="icon-con">
+                <FaSave />
+              </div>
+              <div className="label">
+              Save{" "}
+              </div>
+            </div>
+</button>
         </div>
       </div>
     </div>
