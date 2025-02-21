@@ -1,52 +1,170 @@
-import { useState } from "react";
+// import { useEffect, useState } from "react";
+// import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
+// import { selectionStore } from "../store/UISelectionStore"; // Assuming this is a store like Zustand
+// import TempleLensLayout from "./TempleLensLayout";
+
+// function SideBar() {
+//   const [selectedTab, setSelectedTab] = useState("Frame");
+//   const [tabs, setTabs] = useState(["Temple", "Frame", "Lenses"]);
+
+//   // Watch for changes in selectionStore.selectedPart and update the component's state accordingly
+//   useEffect(() => {
+//     // Make sure selectionStore.selectedPart is a reactive state or it triggers re-renders
+//     const selectedPart = selectionStore.selectedPart;
+//     console.log(selectedPart)
+//     switch (selectedPart) {
+//       case "Frame":
+//         setSelectedTab("Frame");
+//         break;
+//       case "Temple":
+//         setSelectedTab("Temple");
+//         handleLeftClick();
+//         break;
+//       case "Lenses":
+//         setSelectedTab("Lenses");
+//         handleRightClick();
+//         break;
+//       default:
+//         break;
+//     }
+//   }, [selectionStore.selectedPart]); // Ensure this dependency is correct
+
+//   const handleLeftClick = () => {
+//     // Rotate the tabs for right arrow click
+//     const newTabs = [...tabs];
+//     const newSelectedTab = newTabs.pop(); // Pop the last tab
+//     newTabs.unshift(newSelectedTab); // Push it to the beginning
+//     setTabs(newTabs);
+//     setSelectedTab(newTabs[1]);
+//     selectionStore.setSelectedPart(newTabs[1]); // Assuming the store has a method to update the part
+//   };
+
+//   const handleRightClick = () => {
+//     // Rotate the tabs for left arrow click
+//     const newTabs = [...tabs];
+//     const newSelectedTab = newTabs.shift(); // Shift the first tab
+//     newTabs.push(newSelectedTab); // Push it to the end
+//     setTabs(newTabs);
+//     setSelectedTab(newTabs[1]);
+//     selectionStore.setSelectedPart(newTabs[1]); // Update the store's selected part
+//   };
+
+//   return (
+//     <div className="w-full h-[500px] bg-[url('/assets/background/sidebarbg.png')] mx-5 bg-cover bg-center bg-no-repeat overflow-hidden border-1 border-gray-200 rounded-[10px]">
+//       <div className="w-full px-6 mt-6">
+//         {console.log(selectionStore.selectedPart)}
+//         <div className="flex mb-4 justify-between text-[18px] text-white">
+//           <div
+//             className="left-tab opacity-50 flex items-center gap-2 cursor-pointer hover:opacity-100 hover:scale-103 duration-200"
+//             onClick={handleLeftClick}
+//           >
+//             <div className="icon-con">
+//               <HiArrowLongLeft />
+//             </div>
+//             <div className="label">{tabs[0]}</div>
+//           </div>
+
+//           <div className="center-tab font-bold flex items-center gap-2 cursor-pointer hover:opacity-100 hover:scale-103 duration-200">
+//             <div className="label ml-1 text-purple-300">{tabs[1]}</div>
+//           </div>
+
+//           <div
+//             className="right-tab opacity-50 flex items-center gap-2 cursor-pointer hover:opacity-100 hover:scale-103 duration-200"
+//             onClick={handleRightClick}
+//           >
+//             <div className="label">{tabs[2]}</div>
+//             <div className="icon-con">
+//               <HiArrowLongRight />
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Triangle under the selected tab */}
+//         <div className="line flex items-center justify-center">
+//           <div className="triangle w-1 h-1 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-purple-300"></div>
+//         </div>
+
+//         <div className="border-t border-purple-300 w-full"></div>
+
+//         <div className="last overflow-y-scroll h-100">
+//           {/* Render TempleLensLayout here based on the selected part */}
+//           <TempleLensLayout />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default SideBar;
+import { useEffect, useState } from "react";
 import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
-import { selectionStore } from "../store/UISelectionStore";
+import { selectionStore } from "../store/UISelectionStore"; // Assuming this is Zustand
 import TempleLensLayout from "./TempleLensLayout";
+import { observer } from "mobx-react";
 
-function SideBar() {
-  // const [selectedTab, setSelectedTab] = useState("Frame");
-  const [tabs, setTabs] = useState(["Temple", "Frame", "Lenses"]);
+const SideBar = observer(() => {
+  const [selectedTab, setSelectedTab] = useState("Frame");
+  const tabs = ["Temple", "Frame", "Lenses"];
 
-  // Handle left arrow click
-  const handleRightClick = () => {
-    selectionStore.setSelectedPart(tabs[tabs.length - 1]);
-    const newTabs = [...tabs]; 
-    newTabs.push(newTabs.shift()); 
-    setTabs(newTabs); 
+  const selectedPart = selectionStore.selectedPart;
+
+  useEffect(() => {
+    console.log(selectedPart);
+    switch (selectedPart) {
+      case "Frame":
+        setSelectedTab("Frame");
+        break;
+      case "Temple":
+        setSelectedTab("Temple");
+        break;
+      case "Lenses":
+        setSelectedTab("Lenses");
+        break;
+      default:
+        break;
+    }
+  }, [selectedPart]);
+
+  const rotateTabsLeft = () => {
+    const currentIndex = tabs.indexOf(selectedTab);
+    const nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+    setSelectedTab(tabs[nextIndex]);
+    selectionStore.setSelectedPart(tabs[nextIndex]);
   };
-  
-  // Handle right arrow click
-  const handleLeftClick = () => {
-    selectionStore.setSelectedPart(tabs[0]);
-    const newTabs = [...tabs]; 
-    newTabs.unshift(newTabs.pop()); 
-    setTabs(newTabs);
+
+  const rotateTabsRight = () => {
+    const currentIndex = tabs.indexOf(selectedTab);
+    const nextIndex = (currentIndex + 1) % tabs.length;
+    setSelectedTab(tabs[nextIndex]);
+    selectionStore.setSelectedPart(tabs[nextIndex]);
   };
 
   return (
-    <div className="w-full h-[500px] bg-[url('/assets/background/sidebarbg.png')] mx-5 bg-cover bg-center bg-no-repeat overflow-hidden border-1 border-gray-200 rounded-[10px] ">
+    <div className="w-full h-[500px] bg-[url('/assets/background/sidebarbg.png')] mx-5 bg-cover bg-center bg-no-repeat overflow-hidden border-1 border-gray-200 rounded-[10px]">
       <div className="w-full px-6 mt-6">
-        {console.log(selectionStore.selectedPart)}
         <div className="flex mb-4 justify-between text-[18px] text-white">
           <div
             className="left-tab opacity-50 flex items-center gap-2 cursor-pointer hover:opacity-100 hover:scale-103 duration-200"
-            onClick={handleLeftClick}
+            onClick={rotateTabsLeft}
           >
             <div className="icon-con">
               <HiArrowLongLeft />
             </div>
-            <div className="label">{tabs[0]}</div>
+            <div className="label">{tabs[(tabs.indexOf(selectedTab) - 1 + tabs.length) % tabs.length]}</div>
           </div>
 
-          <div className="center-tab font-bold flex items-center gap-2 cursor-pointer hover:opacity-100 hover:scale-103 duration-200">
-            <div className="label ml-1 text-purple-300">{tabs[1]}</div>
+          <div
+            className="center-tab font-bold flex items-center gap-2 cursor-pointer hover:opacity-100 hover:scale-103 duration-200"
+            onClick={() => setSelectedTab(tabs[1])}
+          >
+            <div className="label ml-1 text-purple-300">{selectedTab}</div>
           </div>
 
           <div
             className="right-tab opacity-50 flex items-center gap-2 cursor-pointer hover:opacity-100 hover:scale-103 duration-200"
-            onClick={handleRightClick}
+            onClick={rotateTabsRight}
           >
-            <div className="label">{tabs[2]}</div>
+            <div className="label">{tabs[(tabs.indexOf(selectedTab) + 1) % tabs.length]}</div>
             <div className="icon-con">
               <HiArrowLongRight />
             </div>
@@ -61,15 +179,12 @@ function SideBar() {
         <div className="border-t border-purple-300 w-full"></div>
 
         <div className="last overflow-y-scroll h-100">
-          {/* {(selectionStore.selectedPart === 'Temple' || selectionStore.selectedPart === 'Frame')  ? ( */}
-            <TempleLensLayout />
-          {/* ): <>
-          {console.log(selectionStore.selectedPart)}
-          </>} */}
+          {/* Render TempleLensLayout here based on the selected part */}
+          <TempleLensLayout />
         </div>
       </div>
     </div>
   );
-}
+});
 
 export default SideBar;

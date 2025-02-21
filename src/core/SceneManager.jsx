@@ -52,6 +52,9 @@ export class SceneManager {
     this.scene.add(model);
 
   }
+  addLabelsToScene(labels) {
+    labels.forEach((label) => this.scene.add(label));
+  }
 
   // setupAxisHelper() {
   //   const axesHelper = new THREE.AxesHelper(5);

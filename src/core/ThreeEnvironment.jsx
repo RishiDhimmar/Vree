@@ -125,6 +125,10 @@ export class ThreeEnvironment {
     const animate = () => {
       const delta = this.clock.getDelta();
       this.controlsManager.update(delta);
+      this.rendererManager.labelRenderer.render(
+        this.sceneManager.scene,
+        this.cameraManager.camera
+      );
 
       // Use composer OR regular renderer, not both
       if (this.outLineManager.composer) {
@@ -135,11 +139,15 @@ export class ThreeEnvironment {
           this.cameraManager.camera
         );
       }
+      // debugger
+
       requestAnimationFrame(animate);
     };
     animate();
   }
-
+  
+  
+    
   dispose() {
     window.removeEventListener("resize", this.handleResize);
     this.sceneManager.dispose();
