@@ -80,19 +80,35 @@ export class ThreeEnvironment {
 
     // Update controls to reflect initial camera position
     this.controlsManager.controls.update();
+    const textureLoader = new THREE.TextureLoader();
+    const simpleShadow = textureLoader.load("/assets/shadow/shadow.jpg");
+
+    const sphereShadow = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshBasicMaterial({
+        color: 0x000000,
+        transparent: true,
+        alphaMap: simpleShadow,
+      })
+    );
+    sphereShadow.rotation.x = -Math.PI * 0.5;
+    sphereShadow.position.set(0, -0.5, -0.9);
+    sphereShadow.scale.set(5, 3.5, 5);
+    this.sceneManager.scene.add(sphereShadow);
   }
 
   addModelToScene(model) {
+    console.log("model", model.children[0].children);
     this.sceneManager.scene.add(model);
     model.children[0].material.envMap = textureStore.getTexture("environment");
     frameObject.setupFrame(model.children[0]);
-    model.traverse((child) => {
-      if (child.isMesh) {
-        // child.castShadow = true;
-        // child.receiveShadow = true;
-        this.sceneManager.handleModelAddingToScene(child);
-      }
+    let temp = [...model.children[0].children];
+    temp.map((child) => {
+      // debugger
+      console.log(child);
+      this.sceneManager.handleModelAddingToScene(child);
     });
+
     selectionStore.setReadyToLoad(true);
   }
 
@@ -105,30 +121,11 @@ export class ThreeEnvironment {
     this.rendererManager.handleResize();
   }
 
-  // startAnimationLoop() {
-  //   const animate = () => {
-  //     const delta = this.clock.getDelta();
-  //     // debugger
-  //     this.controlsManager.update(delta);
-
-  //     if(this.outLineManager.composer) {
-  //       // console.log(this.outLineManager.composer)
-  //       this.outLineManager.composer.render();
-  //     }
-
-  //     this.rendererManager.render(
-  //       this.sceneManager.scene,
-  //       this.cameraManager.camera
-  //     );
-  //     requestAnimationFrame(animate);
-  //   };
-  //   animate();
-  // }
   startAnimationLoop() {
     const animate = () => {
       const delta = this.clock.getDelta();
       this.controlsManager.update(delta);
-  
+
       // Use composer OR regular renderer, not both
       if (this.outLineManager.composer) {
         this.outLineManager.composer.render();

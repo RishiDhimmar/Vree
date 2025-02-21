@@ -3,7 +3,7 @@ import { frameObject } from "../core/FrameClass";
 import { lenseObject } from "../core/LenseClass";
 import { templeObject } from "../core/TempleClass";
 class UISelectionStore {
-  selectedPart = "Temple";
+  selectedPart = "Frame";
   selectedStuff = {
     "Frame" : {
       texture : null,

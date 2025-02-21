@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { CSS2DRenderer } from "three/examples/jsm/Addons.js";
 
 export class RendererManager {
   constructor(canvas) {
@@ -21,6 +22,13 @@ export class RendererManager {
     // this.renderer.outputColorSpace = THREE.SRGBColorSpace; // Proper color management
     this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    this.labelRenderer = new CSS2DRenderer();
+    this.labelRenderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+    this.labelRenderer.domElement.style.position = "absolute";
+    this.labelRenderer.domElement.style.top = "0px";
+    this.labelRenderer.domElement.style.pointerEvents = "none";
+    this.canvas.parentElement.appendChild(this.labelRenderer.domElement);
   }
 
   handleResize() {

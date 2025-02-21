@@ -15,6 +15,7 @@ export class TempleClass extends GlassesClass {
     this.rightMesh = mesh;
   }
   setupLeftTemple(model){
+    console.log(model)
     this.setLeftTempleMaterial(model.material);
     this.setLeftTempleMaterialColor(model.material.color);
     this.setLeftTempleMaterialMetalNess(model.material.metalness);
@@ -104,6 +105,7 @@ export class TempleClass extends GlassesClass {
     return this.leftTempleMaterial.color;
   }
   getMetalNess() {
+    if (!this.leftTempleMaterial) return false;
     return this.leftTempleMaterial.metalness;
   }
   getRoughness() {
@@ -113,7 +115,7 @@ export class TempleClass extends GlassesClass {
     return this.leftTempleMaterial.opacity;
   }
   getMesh() {
-    return this.leftMesh;
+    return [this.leftMesh, this.rightMesh];
   }
 }
 

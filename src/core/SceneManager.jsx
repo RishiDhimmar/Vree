@@ -14,17 +14,17 @@ export class SceneManager {
   }
 
   setupPlane() {
-    const planeGeometry = new THREE.PlaneGeometry(30, 30);
-    const planeMaterial = new THREE.MeshStandardMaterial({
-      color: "purple",
-      opacity: 0,
-      transparent: true,
-    });
-    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-    plane.position.y = -0.5;
-    plane.rotation.x = -Math.PI * 0.5;
-    plane.receiveShadow = true;
-    this.scene.add(plane);
+    // const planeGeometry = new THREE.PlaneGeometry(30, 30);
+    // const planeMaterial = new THREE.MeshStandardMaterial({
+    //   color: "purple",
+    //   opacity: 0,
+    //   transparent: true,
+    // });
+    // const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    // plane.position.y = -0.5;
+    // plane.rotation.x = -Math.PI * 0.5;
+    // plane.receiveShadow = true;
+    // this.scene.add(plane);
 
   }
 
@@ -49,6 +49,8 @@ export class SceneManager {
       default:
         break;
     }
+    this.scene.add(model);
+
   }
 
   // setupAxisHelper() {

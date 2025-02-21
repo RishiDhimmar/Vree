@@ -3,14 +3,23 @@ import { GlassesClass } from "./GlassesClass";
 import * as THREE from "three";
 
 class LenseClass extends GlassesClass {
-    mesh = null;
+    leftMesh;
+    rightMesh;
 
+    setLeftMesh(mesh) {
+        this.leftMesh = mesh;
+    }
+    setRightMesh(mesh) {
+        this.rightMesh = mesh;
+    }
     setupLeftLense(lense) {
+        this.setLeftMesh(lense);
         this.setLeftLenseMaterial(lense.material);
         this.leftLenseMaterial.transparent = true
     }
 
     setupRightLense(lense) {
+        this.setRightMesh(lense);
         this.setRightLenseMaterial(lense.material);
         this.rightLenseMaterial.transparent = true
 
@@ -50,9 +59,18 @@ class LenseClass extends GlassesClass {
         return this.leftLenseMaterial.opacity
     }
     
-    getMesh() {
-        return this.mesh;
+    getLeftMesh() {
+        return this.leftMesh
     }
+
+    getRightMesh() {
+        return this.rightMesh
+    }
+
+    getMesh(){
+        return [this.leftMesh, this.rightMesh]
+    }
+
 
 }
 

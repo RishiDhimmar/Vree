@@ -6,12 +6,15 @@ function TextureSelector() {
 
   const [selectedTexture, setSelectedTexture] = useState(null);
 
+
+
   const textures = ["null_image.svg", "original.jpg", "texture1.png"];
   if(selectionStore.SelectedPart == "Frame") {
     textures.push("texture3.jpg");
   } else if(selectionStore.SelectedPart == "Temple") {
     textures.push("texture2.jpg");
   }
+  
 
   const handleSelectionChange = (texture) => {
     console.log(texture)

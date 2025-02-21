@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { selectionStore } from "../store/UISelectionStore";
 import { frameObject } from "../core/FrameClass";
 import { templeObject } from "../core/TempleClass";
@@ -11,11 +11,11 @@ const MaterialProperties = observer(() => {
   const [transparency, setTransparency] = useState(1);
 
   useEffect(() => {
-    console.log("fefe")
-
+    
     if(!selectionStore.selectedPart || !frameObject.getMetalNess()) return
 
-    if(!frameObject.getFrameMaterial() || !templeObject.getMetalNess()) return
+    console.log("fefe")
+    // if(!frameObject.getFrameMaterial() || !templeObject.getMetalNess()) return
     switch(selectionStore.selectedPart) {
       case "Frame":
         setMetallic(frameObject.getMetalNess())

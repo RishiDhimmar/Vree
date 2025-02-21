@@ -63,7 +63,7 @@ class FrameClass extends GlassesClass {
     return this.frameMaterial.opacity;
   }
   getMesh() {
-    return this.mesh;
+    return [this.mesh];
   }
 }
 
