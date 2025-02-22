@@ -1,5 +1,4 @@
-import React from "react";
-
+// eslint-disable-next-line react/prop-types
 function CircleContainer({ path = "#", active, color = "transparent", onClick }) {
   return (
     <div className="flex justify-center items-center cursor-pointer" onClick={() => onClick(color)}>

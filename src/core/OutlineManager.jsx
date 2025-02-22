@@ -96,6 +96,7 @@ export class OutlineManager {
     this.outlinePass.edgeStrength = this.params.edgeStrength;
     this.outlinePass.edgeGlow = this.params.edgeGlow;
     this.outlinePass.edgeThickness = this.params.edgeThickness;
+    this.outlinePass.usePatternTexture = false;
     this.outlinePass.visibleEdgeColor.set("#a774ff");
     this.outlinePass.hiddenEdgeColor.set(0x4e3636);
   }

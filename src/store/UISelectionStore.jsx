@@ -5,25 +5,25 @@ import { templeObject } from "../core/TempleClass";
 class UISelectionStore {
   selectedPart = "Frame";
   selectedStuff = {
-    "Frame" : {
-      texture : null,
-      color : null,
-      metallic : null,
-      roughness : null
+    Frame: {
+      texture: null,
+      color: null,
+      metallic: null,
+      roughness: null,
     },
-    "Temple" : {
-      texture : null,
-      color : null,
-      metallic : null,
-      roughness : null
+    Temple: {
+      texture: null,
+      color: null,
+      metallic: null,
+      roughness: null,
     },
-    "Lenses" : {
-      texture : null,
-      color : null,
-      metallic : null,
-      roughness : null
-    }
-  }
+    Lenses: {
+      texture: null,
+      color: null,
+      metallic: null,
+      roughness: null,
+    },
+  };
   readyToLoad = false;
 
   constructor() {
@@ -50,7 +50,6 @@ class UISelectionStore {
     console.log(texture, part);
     switch (part) {
       case "Frame":
-        
         frameObject.setTexture(texture);
         break;
 
@@ -66,13 +65,15 @@ class UISelectionStore {
     switch (part) {
       case "Frame":
         frameObject.setMetalNess(metallic);
-        selectionStore.selectedStuff.Frame.metallic = metallic
+        selectionStore.selectedStuff.Frame.metallic = metallic;
         break;
 
       case "Temple":
         templeObject.setMetalNess(metallic);
-        selectionStore.selectedStuff.Temple.metallic = metallic
+        selectionStore.selectedStuff.Temple.metallic = metallic;
         break;
+
+     
       default:
         break;
     }
@@ -82,13 +83,14 @@ class UISelectionStore {
     switch (part) {
       case "Frame":
         frameObject.setRoughness(roughness);
-        selectionStore.selectedStuff.Frame.roughness = roughness
+        selectionStore.selectedStuff.Frame.roughness = roughness;
         break;
 
       case "Temple":
         templeObject.setRoughness(roughness);
-        selectionStore.selectedStuff.Temple.roughness = roughness
+        selectionStore.selectedStuff.Temple.roughness = roughness;
         break;
+      
       default:
         break;
     }
@@ -112,7 +114,7 @@ class UISelectionStore {
     }
   }
   setColor(color, part = this.selectedPart) {
-    console.log("color" , part)
+    console.log("color", part);
     switch (part) {
       case "Frame":
         frameObject.setColor(color);
@@ -129,7 +131,6 @@ class UISelectionStore {
         break;
     }
   }
-  
 }
 
 export const selectionStore = new UISelectionStore();

@@ -2,7 +2,6 @@ import { useRef, useEffect, useState } from "react";
 import { CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer";
 import {selectionStore} from "../store/UISelectionStore";
 import { observer } from "mobx-react";
-import { set } from "mobx";
 
 const Labels = observer(({ addToScene }) => {
   const [selected, setSelected] = useState(selectionStore.selectedPart); // Track selected button

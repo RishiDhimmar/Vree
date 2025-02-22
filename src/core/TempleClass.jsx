@@ -1,8 +1,7 @@
 import { textureStore } from "../store/TextureStore";
-import { GlassesClass } from "./GlassesClass";
 import * as THREE from "three";
 
-export class TempleClass extends GlassesClass {
+export class TempleClass   {
   leftTempleMaterial = null;
   rightTempleMaterial = null;
   mesh = null;
@@ -42,10 +41,7 @@ export class TempleClass extends GlassesClass {
     this.rightTempleMaterial = material;
     this.rightTempleMaterial.transparent = true;
 
-    // this.setMetalness(1)
-    // this.setRoughness(0)
-    // this.leftTempleMaterial.clearCoat = 0
-    // console.log(material.metalness)
+ 
   }
   setTexture(texture) {
     const temp = textureStore.assetMap.get(texture.split(".")[0]);

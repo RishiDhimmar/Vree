@@ -1,8 +1,7 @@
 import { textureStore } from "../store/TextureStore";
-import { GlassesClass } from "./GlassesClass";
 import * as THREE from "three";
 
-class FrameClass extends GlassesClass {
+class FrameClass   {
   frameMaterial = null;
   mesh = null;
 

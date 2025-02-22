@@ -5,22 +5,21 @@ import { useState } from "react";
 
 function ColorSelector() {
   const colors = [
-    "#FFFFFF",
-    "#D5BC93",
-    "#AC252B",
+    "#ffffff",
+    "#d5bc93",
+    "#8c1c21",
     "#185848",
     "#025D98",
     "#D2A693",
   ];
 
-  const [selectedColor, setSelectedColor] = useState(null);
+  const [, setSelectedColor] = useState(null);
 
   // Fix the color click handler
   const handleColorClick = (color) => {
     selectionStore.selectedStuff[selectionStore.selectedPart].color = color;
     console.log(color, selectionStore.selectedPart, selectionStore.selectedStuff[selectionStore.selectedPart].color),
       setSelectedColor(color);
-    // If you need to update some global state (e.g., selectionStore), do that here
     selectionStore.setColor(color);
   };
 
@@ -33,7 +32,7 @@ function ColorSelector() {
             key={index}
             color={color}
             active={color == selectionStore.selectedStuff[selectionStore.selectedPart].color}
-            onClick={() => handleColorClick(color)} // Pass the color here
+            onClick={() => handleColorClick(color)} 
           />
         ))}
         <CircleContainer

@@ -14,23 +14,23 @@ const MaterialProperties = observer(() => {
     
     if(!selectionStore.selectedPart || !frameObject.getMetalNess()) return
 
-    console.log("fefe")
+    // console.log("fefe")
     // if(!frameObject.getFrameMaterial() || !templeObject.getMetalNess()) return
     switch(selectionStore.selectedPart) {
       case "Frame":
         setMetallic(frameObject.getMetalNess())
         setRoughness(frameObject.getRoughness())
-        setTransparency(frameObject.getTransparency())
+        setTransparency(1-frameObject.getTransparency())
         break;
 
       case "Temple":
         setMetallic(templeObject.getMetalNess())
         setRoughness(templeObject.getRoughness())
-        setTransparency(templeObject.getTransparency())
+        setTransparency(1-templeObject.getTransparency())
         break;
 
       case "Lenses":
-        setTransparency(lenseObject.getTransparency())
+        setTransparency( 1- lenseObject.getTransparency())
         break;
       default:
         break;
@@ -47,7 +47,7 @@ const MaterialProperties = observer(() => {
   }
   const handleOpacityChange = (e) => {
     setTransparency(parseFloat(e.target.value))
-    selectionStore.setOpacity(parseFloat(e.target.value))
+    selectionStore.setOpacity(1-parseFloat(e.target.value))
   }
 
   return (

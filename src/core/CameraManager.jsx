@@ -5,10 +5,7 @@ export class CameraManager {
     this.canvas = canvas;
     this.sizes = { width: canvas.clientWidth, height: canvas.clientHeight };
     this.clock = new THREE.Clock();
-
     this.camera = null;
-    this.controls = null;
-    // this.setupCamera()
   }
 
   setupCamera() {
@@ -27,7 +24,6 @@ export class CameraManager {
 
 
   handleResize() {
-    // Adjust aspect ratio and update camera projection matrix on resize
     this.sizes.width = this.canvas.clientWidth;
     this.sizes.height = this.canvas.clientHeight;
 
@@ -35,8 +31,4 @@ export class CameraManager {
     this.camera.updateProjectionMatrix();
   }
 
-  update(delta) {
-    // Update controls during the animation loop
-    return this.controls.update(delta);
-  }
 }
