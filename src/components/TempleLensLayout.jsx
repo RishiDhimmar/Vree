@@ -12,7 +12,7 @@ function TempleLensLayout() {
       {console.log(selectionStore.selectedPart)}
       {selectionStore.selectedPart !== "Lenses" && (
         <>
-          <div className="wrap my-3 text-lg text-white font-bold">
+          <div className="wrap my-0 text-lg text-white font-bold">
             <TextureSelector />
           </div>
           

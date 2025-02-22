@@ -27,7 +27,7 @@ export class ControlsManager {
       // Smoothing configuration
       this.controls.dollySpeed = 0.9;
       this.controls.truckSpeed = 2.5;
-      this.controls.dampingFactor = 0.5;
+      this.controls.smoothTime = 1.5;
     }
   update(delta) {
     if (this.controls) {

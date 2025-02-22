@@ -4,6 +4,7 @@ import { frameObject } from "../core/FrameClass";
 import { templeObject } from "../core/TempleClass";
 import { observer } from "mobx-react";
 import { lenseObject } from "../core/LenseClass";
+import ProgressBar from "./ProgressBar";
 
 const MaterialProperties = observer(() => {
   const [metallic, setMetallic] = useState(0);
@@ -11,102 +12,88 @@ const MaterialProperties = observer(() => {
   const [transparency, setTransparency] = useState(1);
 
   useEffect(() => {
-    
-    if(!selectionStore.selectedPart || !frameObject.getMetalNess()) return
+    if (!selectionStore.selectedPart || !frameObject.getMetalNess()) return;
 
     // console.log("fefe")
     // if(!frameObject.getFrameMaterial() || !templeObject.getMetalNess()) return
-    switch(selectionStore.selectedPart) {
+    switch (selectionStore.selectedPart) {
       case "Frame":
-        setMetallic(frameObject.getMetalNess())
-        setRoughness(frameObject.getRoughness())
-        setTransparency(1-frameObject.getTransparency())
+        setMetallic(frameObject.getMetalNess());
+        setRoughness(frameObject.getRoughness());
+        setTransparency(1 - frameObject.getTransparency());
         break;
 
       case "Temple":
-        setMetallic(templeObject.getMetalNess())
-        setRoughness(templeObject.getRoughness())
-        setTransparency(1-templeObject.getTransparency())
+        setMetallic(templeObject.getMetalNess());
+        setRoughness(templeObject.getRoughness());
+        setTransparency(1 - templeObject.getTransparency());
         break;
 
       case "Lenses":
-        setTransparency( 1- lenseObject.getTransparency())
+        setTransparency(1 - lenseObject.getTransparency());
         break;
       default:
         break;
     }
-    
-  },[selectionStore.selectedPart, selectionStore.selectedStuff, selectionStore.readyToLoad])
-  const handleMetalNessChange = (e) => {
-    setMetallic(parseFloat(e.target.value))
-    selectionStore.setMetalNess(parseFloat(e.target.value))
-  }
-  const handleRoughNessChange = (e) => {
-    setRoughness(parseFloat(e.target.value))
-    selectionStore.setRoughness(parseFloat(e.target.value))
-  }
-  const handleOpacityChange = (e) => {
-    setTransparency(parseFloat(e.target.value))
-    selectionStore.setOpacity(1-parseFloat(e.target.value))
-  }
+  }, [
+    selectionStore.selectedPart,
+    selectionStore.selectedStuff,
+    selectionStore.readyToLoad,
+  ]);
+  const handleMetalNessChange = (value) => {
+    setMetallic(parseFloat(value));
+    selectionStore.setMetalNess(parseFloat(value));
+  };
+
+  const handleRoughNessChange = (value) => {
+    setRoughness(parseFloat(value));
+    selectionStore.setRoughness(parseFloat(value));
+  };
+
+  const handleOpacityChange = (value) => {
+    setTransparency(parseFloat(value));
+    selectionStore.setOpacity(1 - parseFloat(value));
+  };
 
   return (
     <div className="mt-8 w-full rounded-lg  text-white w-64">
-      <h2 className="text-lg font-bold mb-4">Material Properties</h2>
+      <h2 className="text-lg font-bold mb-1">Material Properties</h2>
 
       {/* Metallic Slider */}
-      {selectionStore.selectedPart != "Lenses" && (    <div className="my-4 flex gap-7 items-center mb-7 mr-4">
-        <label className="block text-sm font-medium ">Metallic</label>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.1"
-          value={metallic}
-          onChange={handleMetalNessChange}
-          className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
-
-        />
-        <span className="text-xs text-gray-400">{metallic.toFixed(2)}</span>
-      </div>)}
-  
+      {selectionStore.selectedPart != "Lenses" && (
+        <div className="my-1 flex gap-7 items-center  pr-4">
+          <ProgressBar
+            title="Metallic"
+            value={metallic}
+            onChange={handleMetalNessChange}
+          />
+          <span className="text-xs text-gray-400">{metallic.toFixed(2)}</span>
+        </div>
+      )}
 
       {/* Roughness Slider */}
       {selectionStore.selectedPart != "Lenses" && (
-        <div className="mb-4 flex gap-7 items-center mb-7 mr-4">
-
-        <label className="block text-sm font-medium ">Roughness</label>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.1"
-          value={roughness}
-          onChange={handleRoughNessChange}
-          className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
-        />
-        <span className="text-xs text-gray-400">{roughness.toFixed(2)}</span>
-      </div>
+        <div className="mb-1 flex gap-7 items-center  ">
+          <ProgressBar
+            title="Roughness"
+            value={roughness}
+            onChange={handleRoughNessChange}
+          />
+          <span className="text-xs text-gray-400">{roughness.toFixed(2)}</span>
+        </div>
       )}
-      
 
       {/* Transparency Slider */}
-      <div className="mb-4 flex gap-7 items-center mb-5 mr-4">
-
-        <label className="block text-sm font-medium ">Transparency</label>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.1"
+      <div className="mb-1 flex gap-7 items-center ">
+        <ProgressBar
+          title="Transparency"
           value={transparency}
           onChange={handleOpacityChange}
-          className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
         />
         <span className="text-xs text-gray-400">{transparency.toFixed(2)}</span>
       </div>
     </div>
   );
-})
+});
 
 export default MaterialProperties;

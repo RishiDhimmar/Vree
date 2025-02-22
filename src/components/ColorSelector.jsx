@@ -25,8 +25,8 @@ function ColorSelector() {
 
   return (
     <div>
-      <div className="label mt-[30px]">Color</div>
-      <div className="wrap flex flex-wrap gap-x-15 gap-y-7 mt-5 pl-5">
+      <div className={`label mt-[20px] ${selectionStore.isDarkTheme ? "" : "text-black"}`}>Color</div>
+      <div className="wrap flex flex-wrap gap-x-15 gap-y-7 mt-3 pl-5">
         {colors.map((color, index) => (
           <CircleContainer
             key={index}

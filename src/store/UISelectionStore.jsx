@@ -4,6 +4,7 @@ import { lenseObject } from "../core/LenseClass";
 import { templeObject } from "../core/TempleClass";
 class UISelectionStore {
   selectedPart = "Frame";
+  isDarkTheme = true;
   selectedStuff = {
     Frame: {
       texture: null,
@@ -36,6 +37,18 @@ class UISelectionStore {
 
   setReadyToLoad(bool) {
     this.readyToLoad = bool;
+  }
+
+  setTheme(theme) {
+    this.theme = theme;
+  }
+
+  toggleTheme() {
+    this.isDarkTheme = !this.isDarkTheme;
+  }
+
+  get Theme() {
+    return this.theme;
   }
 
   get ReadyToLoad() {
