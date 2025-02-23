@@ -51,8 +51,8 @@ class LenseClass  {
   setOpacity(opacity) {
     this.leftLenseMaterial.opacity = opacity;
     this.rightLenseMaterial.opacity = opacity;
-    this.setRoughness(opacity);
-    this.setMetallic(1 - opacity);
+    this.setRoughness(0);
+    this.setMetallic(0.6);
   }
 
   getLeftLenseMaterial() {

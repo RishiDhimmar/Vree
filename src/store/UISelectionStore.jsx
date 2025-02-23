@@ -11,15 +11,18 @@ class UISelectionStore {
       color: null,
       metallic: null,
       roughness: null,
+      transparency: null,
     },
     Temple: {
       texture: "original.jpg",
       color: null,
       metallic: null,
       roughness: null,
+      transparency: null,
     },
     Lenses: {
       color: null,
+      transparency: null,
     },
   };
   readyToLoad = false;
@@ -123,14 +126,17 @@ class UISelectionStore {
     switch (part) {
       case "Frame":
         frameObject.setTransparency(opacity);
+        selectionStore.selectedStuff.Frame.transparency = opacity;
         break;
 
       case "Temple":
         templeObject.setTransparency(opacity);
+        selectionStore.selectedStuff.Temple.transparency = opacity;
         break;
 
       case "Lenses":
         lenseObject.setOpacity(opacity);
+        selectionStore.selectedStuff.Lenses.transparency = opacity;
         break;
       default:
         break;
