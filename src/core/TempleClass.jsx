@@ -1,29 +1,47 @@
 import { textureStore } from "../store/TextureStore";
 import * as THREE from "three";
 
-export class TempleClass   {
+export class TempleClass {
   leftTempleMaterial = null;
   rightTempleMaterial = null;
+  initMetalNess = null;
+  initRoughNess = null;
+  initOpacity = null;
   mesh = null;
 
-  
   setLeftMesh(mesh) {
     this.leftMesh = mesh;
   }
   setRightMesh(mesh) {
     this.rightMesh = mesh;
   }
-  setupLeftTemple(model){
-    console.log(model)
+  setupLeftTemple(model) {
+    console.log(model);
     this.setLeftTempleMaterial(model.material);
     this.setLeftTempleMaterialColor(model.material.color);
     this.setLeftTempleMaterialMetalNess(model.material.metalness);
+    this.initMetalNess = model.material.metalness;
     this.setLeftTempleMaterialRoughness(model.material.roughness);
+    this.initRoughNess = model.material.roughness;
     this.setLeftTempleMaterialOpacity(model.material.opacity);
-    console.log("Left Temple Set")
+    this.initOpacity = model.material.opacity;
+    console.log("Left Temple Set");
     this.setLeftMesh(model);
   }
-  setupRightTemple(model){
+  reset(){
+    this.leftTempleMaterial.metalness = this.initMetalNess;
+    this.leftTempleMaterial.roughness = this.initRoughNess;
+    this.leftTempleMaterial.color = new THREE.Color(null);
+    this.leftTempleMaterial.opacity = this.initOpacity;
+    this.rightTempleMaterial.metalness = this.initMetalNess;
+    this.rightTempleMaterial.roughness = this.initRoughNess;
+    this.rightTempleMaterial.color = new THREE.Color(null);
+    this.rightTempleMaterial.opacity = this.initOpacity;
+    this.setTexture('original_left_temple', 'original_right_temple');
+    this.leftTempleMaterial.needsUpdate = true;
+    this.rightTempleMaterial.needsUpdate = true;
+  }
+  setupRightTemple(model) {
     this.setRightTempleMaterial(model.material);
     this.setRightTempleMaterialColor(model.material.color);
     this.setRightTempleMaterialMetalNess(model.material.metalness);
@@ -40,14 +58,19 @@ export class TempleClass   {
   setRightTempleMaterial(material) {
     this.rightTempleMaterial = material;
     this.rightTempleMaterial.transparent = true;
-
- 
   }
-  setTexture(texture) {
-    const temp = textureStore.assetMap.get(texture.split(".")[0]);
-    console.log(temp);
-    this.leftTempleMaterial.map = temp;
-    this.rightTempleMaterial.map = temp;
+  setTexture(leftTexture, rightTexture) {
+    let tempLeft = null;
+    let tempRight = null;
+    if (leftTexture != null) {
+      tempLeft = textureStore.assetMap.get(leftTexture.split(".")[0]);
+      tempRight = textureStore.assetMap.get(rightTexture.split(".")[0]);
+    }
+    this.leftTempleMaterial.map = tempLeft;
+    console.log(this.leftTempleMaterial.map);
+    this.rightTempleMaterial.map = tempRight;
+    this.leftTempleMaterial.needsUpdate = true;
+    this.rightTempleMaterial.needsUpdate = true;
   }
   setMetalNess(metallic) {
     this.leftTempleMaterial.metalness = metallic;
@@ -76,7 +99,7 @@ export class TempleClass   {
   }
   setLeftTempleMaterialColor(color) {
     this.leftTempleMaterial.color = new THREE.Color(color);
-  } 
+  }
   setRightTempleMaterialColor(color) {
     this.rightTempleMaterial.color = new THREE.Color(color);
   }

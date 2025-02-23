@@ -9,10 +9,6 @@ class TextureStore {
         url : "./assets/glbs/sampleModel.glb",
         type : "model"
     },{
-        name : "original",
-        url : "./assets/texture/original.jpg",
-        type : "texture"
-    },{
         name : "texture1",
         url : "./assets/texture/texture1.png",
         type : "texture"

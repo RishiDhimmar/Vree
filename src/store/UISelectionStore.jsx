@@ -7,22 +7,19 @@ class UISelectionStore {
   isDarkTheme = true;
   selectedStuff = {
     Frame: {
-      texture: null,
+      texture: "original.jpg",
       color: null,
       metallic: null,
       roughness: null,
     },
     Temple: {
-      texture: null,
+      texture: "original.jpg",
       color: null,
       metallic: null,
       roughness: null,
     },
     Lenses: {
-      texture: null,
       color: null,
-      metallic: null,
-      roughness: null,
     },
   };
   readyToLoad = false;
@@ -60,14 +57,28 @@ class UISelectionStore {
   }
 
   setTexture(texture, part = this.selectedPart) {
+    let leftTexture = null;
+    let rightTexture = null;
     console.log(texture, part);
     switch (part) {
       case "Frame":
+        if (texture == "original.jpg") texture = "original_frame";
+        if (texture == "null_image.svg") texture = null;
         frameObject.setTexture(texture);
         break;
 
       case "Temple":
-        templeObject.setTexture(texture);
+        if (texture == "original.jpg") {
+          (leftTexture = "original_left_temple"),
+            (rightTexture = "original_right_temple");
+        } else {
+          (leftTexture = texture), (rightTexture = texture);
+        }
+        if (texture == "null_image.svg") {
+          (leftTexture = null), (rightTexture = null);
+        }
+
+        templeObject.setTexture(leftTexture, rightTexture);
         break;
 
       default:
@@ -86,7 +97,6 @@ class UISelectionStore {
         selectionStore.selectedStuff.Temple.metallic = metallic;
         break;
 
-     
       default:
         break;
     }
@@ -103,7 +113,7 @@ class UISelectionStore {
         templeObject.setRoughness(roughness);
         selectionStore.selectedStuff.Temple.roughness = roughness;
         break;
-      
+
       default:
         break;
     }
@@ -143,6 +153,29 @@ class UISelectionStore {
       default:
         break;
     }
+  }
+  reset() {
+    frameObject.reset();
+    templeObject.reset();
+    lenseObject.reset();
+    this.selectedStuff = {
+      Frame: {
+        texture: "original.jpg",
+        color: null,
+        metallic: null,
+        roughness: null,
+      },
+      Temple: {
+        texture: "original.jpg",
+        color: null,
+        metallic: null,
+        roughness: null,
+      },
+      Lenses: {
+        color: null,
+      },
+    };
+   
   }
 }
 

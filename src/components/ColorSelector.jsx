@@ -1,9 +1,9 @@
-
 import CircleContainer from "./CircleContainer";
 import { selectionStore } from "../store/UISelectionStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { observer } from "mobx-react";
 
-function ColorSelector() {
+const ColorSelector = observer(() => {
   const colors = [
     "#ffffff",
     "#d5bc93",
@@ -13,26 +13,40 @@ function ColorSelector() {
     "#D2A693",
   ];
 
+  useEffect(() => {
+    setSelectedColor(
+      selectionStore.selectedStuff[selectionStore.selectedPart].color
+    );
+  }, [selectionStore.selectedStuff]);
+
   const [, setSelectedColor] = useState(null);
 
   // Fix the color click handler
   const handleColorClick = (color) => {
     selectionStore.selectedStuff[selectionStore.selectedPart].color = color;
-    console.log(color, selectionStore.selectedPart, selectionStore.selectedStuff[selectionStore.selectedPart].color),
-      setSelectedColor(color);
+    setSelectedColor(color);
     selectionStore.setColor(color);
   };
 
   return (
     <div>
-      <div className={`label mt-[20px] ${selectionStore.isDarkTheme ? "" : "text-black"}`}>Color</div>
+      <div
+        className={`label mt-[20px] ${
+          selectionStore.isDarkTheme ? "" : "text-black"
+        }`}
+      >
+        Color
+      </div>
       <div className="wrap flex flex-wrap gap-x-15 gap-y-7 mt-3 pl-5">
         {colors.map((color, index) => (
           <CircleContainer
             key={index}
             color={color}
-            active={color == selectionStore.selectedStuff[selectionStore.selectedPart].color}
-            onClick={() => handleColorClick(color)} 
+            active={
+              color ==
+              selectionStore.selectedStuff[selectionStore.selectedPart].color
+            }
+            onClick={() => handleColorClick(color)}
           />
         ))}
         <CircleContainer
@@ -42,6 +56,6 @@ function ColorSelector() {
       </div>
     </div>
   );
-}
+})
 
 export default ColorSelector;

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import CircleContainer from "./CircleContainer";
 import { selectionStore } from "../store/UISelectionStore";
+import { observer } from "mobx-react";
 
-function TextureSelector() {
+const TextureSelector = observer(() => {
 
   const [selectedTexture, setSelectedTexture] = useState(null);
+
+  useEffect(() => {
+    setSelectedTexture(selectionStore.selectedStuff[selectionStore.selectedPart].texture);
+  }, [selectionStore.selectedStuff]);
 
 
 
@@ -17,7 +22,6 @@ function TextureSelector() {
   
 
   const handleSelectionChange = (texture) => {
-    console.log(texture)
     selectionStore.setTexture(texture);
     setSelectedTexture(texture);
     selectionStore.selectedStuff[selectionStore.selectedPart].texture = texture;
@@ -42,6 +46,6 @@ function TextureSelector() {
       </div>
     </div>
   );
-}
+})
 
 export default TextureSelector;

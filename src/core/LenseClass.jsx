@@ -3,9 +3,15 @@ import * as THREE from "three";
 class LenseClass  {
   leftMesh;
   rightMesh;
+  initColor = null;
+  initOpacity = null;
 
   setLeftMesh(mesh) {
     this.leftMesh = mesh;
+  }
+  reset() {
+    this.setColor(null);
+    this.setOpacity(this.initOpacity);
   }
   setRightMesh(mesh) {
     this.rightMesh = mesh;
@@ -13,6 +19,7 @@ class LenseClass  {
   setupLeftLense(lense) {
     this.setLeftMesh(lense);
     this.setLeftLenseMaterial(lense.material);
+    this.initOpacity = lense.material.opacity;
     console.log(this.leftLenseMaterial);
     this.leftLenseMaterial.transparent = true;
   }

@@ -16,8 +16,9 @@ export class SceneManager {
      this.scene.add(model);
         model.children[0].material.envMap = textureStore.getTexture("environment");
         frameObject.setupFrame(model.children[0]);
-    
+        textureStore.assetMap.set('original_frame', model.children[0].material.map)
         let temp = [...model.children[0].children];
+        console.log(temp)
     
         temp.map((child) => {
           
@@ -33,10 +34,13 @@ export class SceneManager {
             case "left_temple":
               templeObject.setupLeftTemple(child);
               child.material.envMap = textureStore.getTexture("environment");
+              textureStore.assetMap.set('original_left_temple', child.material.map)
               break;
             case "right_temple":
               templeObject.setupRightTemple(child);
               child.material.envMap = textureStore.getTexture("environment");
+              textureStore.assetMap.set('original_right_temple', child.material.map)
+
               break;
       
             default:

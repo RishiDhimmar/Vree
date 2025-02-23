@@ -43,6 +43,10 @@ const SideBar = observer(() => {
     selectionStore.setSelectedPart(tabs[nextIndex]);
   };
 
+  const handleReset = () => {
+    selectionStore.reset();
+  }
+
   return (
     <div className={`w-full h-[555px]  mx-5 bg-cover bg-center bg-no-repeat overflow-hidden border-1 border-gray-200 rounded-[10px] ${selectionStore.isDarkTheme ? "bg-[url('/assets/background/sidebarbg.png')]" : "bgc-white"}`}>
       <div className="w-full px-6 mt-6">
@@ -96,7 +100,7 @@ const SideBar = observer(() => {
         </div>
         <div className="btn-cover my-2 flex justify-center gap-3">
           <button className="reset-wrap w-100">
-            <div className={`btn bg-[#5b585f] border border-2 border-gray-400 rounded w-full py-3 text-[#b5b5b5] cursor-pointer flex items-center duration-100 gap-2 justify-center hover:scale-105 hover:border-white hover:text-white ${selectionStore.isDarkTheme ? "bg-[#5b585f]" : "bg-gray-300 shadow border-1 text-black hover:bg-black hover:text-white"}`} >
+            <div className={`btn bg-[#5b585f] border border-2 border-gray-400 rounded w-full py-3 text-[#b5b5b5] cursor-pointer flex items-center duration-100 gap-2 justify-center hover:scale-105 hover:border-white hover:text-white ${selectionStore.isDarkTheme ? "bg-[#5b585f]" : "bg-gray-300 shadow border-1 text-black hover:bg-black hover:text-white"}`} onClick={handleReset} >
               <div className="icon-con">
                 <GrPowerReset />
               </div>
