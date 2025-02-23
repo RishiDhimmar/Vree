@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { selectionStore } from "../store/UISelectionStore";
-import { frameObject } from "../core/FrameClass";
-import { templeObject } from "../core/TempleClass";
+import { frameObject } from "../core/EntityClasses/FrameClass";
+import { templeObject } from "../core/EntityClasses/TempleClass";
 import { observer } from "mobx-react";
-import { lenseObject } from "../core/LenseClass";
+import { lenseObject } from "../core/EntityClasses/LenseClass";
 import ProgressBar from "./ProgressBar";
 
 const MaterialProperties = observer(() => {

@@ -5,10 +5,10 @@ import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
 import { OutlinePass } from "three/examples/jsm/postprocessing/OutlinePass.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
-import { selectionStore } from "../store/UISelectionStore";
-import { frameObject } from "./FrameClass";
-import { lenseObject } from "./LenseClass";
-import { templeObject } from "./TempleClass";
+import { selectionStore } from "../../store/UISelectionStore";
+import { frameObject } from "../EntityClasses/FrameClass";
+import { lenseObject } from "../EntityClasses/LenseClass";
+import { templeObject } from "../EntityClasses/TempleClass";
 import { reaction } from "mobx";
 
 export class OutlineManager {
@@ -92,7 +92,7 @@ export class OutlineManager {
   }
 
   configureOutlinePass(selectedMesh) {
-    this.outlinePass.selectedObjects = selectedMesh; // Must be array
+    this.outlinePass.selectedObjects = selectedMesh;
     this.outlinePass.edgeStrength = this.params.edgeStrength;
     this.outlinePass.edgeGlow = this.params.edgeGlow;
     this.outlinePass.edgeThickness = this.params.edgeThickness;

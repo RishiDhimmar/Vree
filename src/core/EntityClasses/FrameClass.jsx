@@ -1,4 +1,4 @@
-import { textureStore } from "../store/TextureStore";
+import { textureStore } from "../../store/TextureStore";
 import * as THREE from "three";
 
 class FrameClass   {
@@ -10,6 +10,9 @@ class FrameClass   {
   mesh = null;
 
   setupFrame(model) {
+    model.material.envMap = textureStore.getTexture("environment");
+    textureStore.assetMap.set('original_frame', model.material.map)
+
     this.setFrameMaterial(model.material);
     this.setColor(model.material.color);
     this.setMetalNess(model.material.metalness);

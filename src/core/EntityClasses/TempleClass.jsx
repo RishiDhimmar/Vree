@@ -1,4 +1,4 @@
-import { textureStore } from "../store/TextureStore";
+import { textureStore } from "../../store/TextureStore";
 import * as THREE from "three";
 
 export class TempleClass {
@@ -16,7 +16,9 @@ export class TempleClass {
     this.rightMesh = mesh;
   }
   setupLeftTemple(model) {
-    console.log(model);
+    model.material.envMap = textureStore.getTexture("environment");
+    textureStore.assetMap.set("original_left_temple", model.material.map);
+
     this.setLeftTempleMaterial(model.material);
     this.setLeftTempleMaterialColor(model.material.color);
     this.setLeftTempleMaterialMetalNess(model.material.metalness);
@@ -28,7 +30,7 @@ export class TempleClass {
     console.log("Left Temple Set");
     this.setLeftMesh(model);
   }
-  reset(){
+  reset() {
     this.leftTempleMaterial.metalness = this.initMetalNess;
     this.leftTempleMaterial.roughness = this.initRoughNess;
     this.leftTempleMaterial.color = new THREE.Color(null);
@@ -37,7 +39,7 @@ export class TempleClass {
     this.rightTempleMaterial.roughness = this.initRoughNess;
     this.rightTempleMaterial.color = new THREE.Color(null);
     this.rightTempleMaterial.opacity = this.initOpacity;
-    this.setTexture('original_left_temple', 'original_right_temple');
+    this.setTexture("original_left_temple", "original_right_temple");
     this.leftTempleMaterial.needsUpdate = true;
     this.rightTempleMaterial.needsUpdate = true;
   }
@@ -48,6 +50,8 @@ export class TempleClass {
     this.setRightTempleMaterialRoughness(model.material.roughness);
     this.setRightTempleMaterialOpacity(model.material.opacity);
     this.setRightMesh(model);
+    model.material.envMap = textureStore.getTexture("environment");
+    textureStore.assetMap.set("original_right_temple", model.material.map);
   }
 
   setLeftTempleMaterial(material) {
@@ -67,7 +71,6 @@ export class TempleClass {
       tempRight = textureStore.assetMap.get(rightTexture.split(".")[0]);
     }
     this.leftTempleMaterial.map = tempLeft;
-    console.log(this.leftTempleMaterial.map);
     this.rightTempleMaterial.map = tempRight;
     this.leftTempleMaterial.needsUpdate = true;
     this.rightTempleMaterial.needsUpdate = true;
@@ -93,7 +96,6 @@ export class TempleClass {
     this.rightTempleMaterial.roughness = roughness;
   }
   setColor(color) {
-    console.log(color);
     this.leftTempleMaterial.color = new THREE.Color(color);
     this.rightTempleMaterial.color = new THREE.Color(color);
   }

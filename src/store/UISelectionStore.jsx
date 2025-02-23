@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import { frameObject } from "../core/FrameClass";
-import { lenseObject } from "../core/LenseClass";
-import { templeObject } from "../core/TempleClass";
+import { frameObject } from "../core/EntityClasses/FrameClass";
+import { lenseObject } from "../core/EntityClasses/LenseClass";
+import { templeObject } from "../core/EntityClasses/TempleClass";
 class UISelectionStore {
   selectedPart = "Frame";
   isDarkTheme = true;

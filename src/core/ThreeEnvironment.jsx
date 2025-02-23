@@ -1,12 +1,12 @@
-import { CameraManager } from "./CameraManager";
-import { ControlsManager } from "./ControlsManager";
-import { LightingManager } from "./LightingManager";
-import { RendererManager } from "./RendererManager";
-import { SceneManager } from "./SceneManager";
-import { assetLoadingManager } from "./AssetLoadingManager";
+import { CameraManager } from "./Managers/CameraManager";
+import { ControlsManager } from "./Managers/ControlsManager";
+import { LightingManager } from "./Managers/LightingManager";
+import { RendererManager } from "./Managers/RendererManager";
+import { SceneManager } from "./Managers/SceneManager";
+import { assetLoadingManager } from "./Managers/AssetLoadingManager";
 import * as THREE from "three";
 import { textureStore } from "../store/TextureStore";
-import { OutlineManager } from "./OutlineManager";
+import { OutlineManager } from "./Managers/OutlineManager";
 
 export class ThreeEnvironment {
   constructor(canvas) {
@@ -16,20 +16,28 @@ export class ThreeEnvironment {
 
     // Initialize core systems
     this.sceneManager = new SceneManager();
+
     this.rendererManager = new RendererManager(canvas);
     this.rendererManager.setupRenderer();
+
     this.cameraManager = new CameraManager(canvas);
     this.cameraManager.setupCamera();
+
     this.lightingManager = new LightingManager(
       this.sceneManager.scene,
-      // this.sceneManager.gui
     );
+    this.lightingManager.setupLights();
+
+
     this.controlsManager = new ControlsManager(
       this.cameraManager.camera,
-      this.rendererManager.renderer.domElement, // Pass the renderer's DOM element
-      // this.sceneManager.gui
+      this.rendererManager.renderer.domElement,
     );
+    this.controlsManager.setupControls();
+
+
     this.assetManager = assetLoadingManager;
+
     this.outLineManager = new OutlineManager(
       this.sceneManager.scene,
       this.cameraManager.camera,
@@ -40,7 +48,6 @@ export class ThreeEnvironment {
   }
 
   async initialize() {
-    this.setupScene();
     this.setupEventListeners();
 
     try {
@@ -54,41 +61,9 @@ export class ThreeEnvironment {
       console.error("Initialization error:", error);
     }
     this.outLineManager.setupOutline();
-    console.log(this.sceneManager.scene)
+    this.sceneManager.addBakedShadow()
+
   }
-
-  // In ThreeEnvironment's setupScene method:
-  setupScene() {
-    // this.sceneManager.setupAxisHelper();
-    this.lightingManager.setupLights();
-    this.controlsManager.setupControls();
-
-    // Ensure camera is positioned correctly
-    this.cameraManager.camera.position.set(5, 5, 5);
-    this.cameraManager.camera.lookAt(0, 0, 0);
-
-    // Update controls to reflect initial camera position
-    const textureLoader = new THREE.TextureLoader();
-
-    // TODO : Move this to AssetLoadingManager
-    const simpleShadow = textureLoader.load("/assets/shadow/shadow.jpg");
-
-    const sphereShadow = new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1),
-      new THREE.MeshBasicMaterial({
-        color: 0x000000,
-        transparent: true,
-        alphaMap: simpleShadow,
-      })
-    );
-    sphereShadow.rotation.x = -Math.PI * 0.5;
-    sphereShadow.position.set(0, -0.5, -0.9);
-    sphereShadow.scale.set(5, 3.5, 5);
-    this.sceneManager.scene.add(sphereShadow);
-  }
-
-
-
 
   setupEventListeners() {
     window.addEventListener("resize", this.handleResize.bind(this));
@@ -119,10 +94,7 @@ export class ThreeEnvironment {
       requestAnimationFrame(animate);
     };
     animate();
-  }
-  
-  
-    
+  }   
   dispose() {
     window.removeEventListener("resize", this.handleResize);
     this.sceneManager.dispose();

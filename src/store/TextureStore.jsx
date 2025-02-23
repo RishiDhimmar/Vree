@@ -24,6 +24,10 @@ class TextureStore {
         name: "environment",
         url: "./assets/environment/brown_photostudio_02_1k.hdr",
         type: "environment"
+    },{
+        name: "shadow",
+        url: "/assets/shadow/shadow.jpg",
+        type: "texture"
     }]
 
     constructor() {

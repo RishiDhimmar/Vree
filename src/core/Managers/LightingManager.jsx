@@ -8,7 +8,6 @@ export class LightingManager {
   }
 
   setupLights() {
-    // Ambient Light
     this.lights.ambient = new THREE.AmbientLight(0xffffff, 12);
     this.scene.add(this.lights.ambient);
 

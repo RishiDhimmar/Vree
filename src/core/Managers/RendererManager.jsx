@@ -15,7 +15,7 @@ export class RendererManager {
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
       alpha: true,
-      antialias: true, // Enable antialiasing
+      antialias: true,
     });
 
     this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
@@ -35,9 +35,7 @@ export class RendererManager {
   }
 
   render(scene, camera) {
-    // Render scene with WebGLRenderer
     this.renderer.render(scene, camera);
-
     // Render labels only if needed
     if (this.labelsVisible) {
       this.labelRenderer.render(scene, camera);
@@ -52,6 +50,4 @@ export class RendererManager {
   addLabel(label) {
     this.labels.push(label); 
   }
-
-
 }
