@@ -8,15 +8,25 @@ import { observer } from "mobx-react";
 const App = observer(() => {
   return (
     <>
-      <div className={`cover w-screen h-screen ${selectionStore.isDarkTheme ? "bg-[url('/assets/background/background.png')]" : "bgc-white"}`}>
+      <div
+        className={`cover w-screen h-screen ${
+          selectionStore.isDarkTheme
+            ? "bg-[url('/assets/background/background.png')]"
+            : "bgc-white"
+        }`}
+      >
         <NavBar />
         <div className="flex bgc-white">
-          <ThreeCanvasWrap />
-          <SideBar />
+          <div className="w-[60vw]">
+            <ThreeCanvasWrap />
+          </div>
+          <div className="w-[40vw] absolute right-0">
+            <SideBar />
+          </div>
         </div>
       </div>
     </>
   );
-})
+});
 
 export default App;

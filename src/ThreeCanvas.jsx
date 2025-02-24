@@ -22,7 +22,7 @@ const ThreeCanvas = () => {
     <>
       <canvas
         ref={canvasRef}
-        style={{ width: "920px", height: "87vh", display: "block" }}
+        style={{ width: "100%", height: "90vh", display: "block" }}
       />
       {/* Only render Labels when threeEnv is available */}
       {threeEnv && (

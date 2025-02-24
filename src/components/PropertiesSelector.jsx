@@ -30,7 +30,7 @@ const MaterialProperties = observer(() => {
         break;
 
       case "Lenses":
-        setTransparency(1 - lenseObject.getTransparency());
+        setTransparency(lenseObject.getTransparency());
         break;
       default:
         break;
