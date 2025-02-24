@@ -1,10 +1,15 @@
 import { useRef, useEffect, useState } from "react";
 import { ThreeEnvironment } from "./core/ThreeEnvironment";
 import Labels from "./components/Labels";
+import { textureStore } from "./store/TextureStore";
+import { selectionStore } from "./store/UISelectionStore";
+import { observer } from "mobx-react";
 
-const ThreeCanvas = () => {
+const ThreeCanvas = observer(() => {
   const canvasRef = useRef(null);
   const [threeEnv, setThreeEnv] = useState(null); // State to track threeEnv initialization
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -18,8 +23,13 @@ const ThreeCanvas = () => {
     }
   }, []);
 
+  useEffect(() => {
+   setLoading(!selectionStore.readyToLoad);
+  }, [selectionStore.readyToLoad]);
+
   return (
     <>
+    {loading && <div className="w-full h-[90vh] flex justify-center items-center"><img src="/assets/icons/loader.svg" alt="loader" srcset="" /></div>}
       <canvas
         ref={canvasRef}
         style={{ width: "100%", height: "90vh", display: "block" }}
@@ -32,6 +42,7 @@ const ThreeCanvas = () => {
       )}
     </>
   );
-};
+}
+)
 
 export default ThreeCanvas;
